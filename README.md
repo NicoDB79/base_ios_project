@@ -1,11 +1,29 @@
 # base_ios_project
 A basic structure to correctly start a new iOS project.
 
-The project has been generated with **Tuist**.
-You need to install Tuist first and then you can use:
+The project uses:
+
+[SwiftGen](https://github.com/swiftgen/swiftgen) for resources generation
+
+[Tuist](https://github.com/tuist/tuist) for workspace generation
+
+<br>
+
+Once installed SwiftGen and Tuist, you can run the following commands:
 
 ***tuist edit*** command to edit the project
 
 ***./tuistgen.sh*** to generate the project
 
-The scenes structure has been generated with the **clean-template**, which you can find among my repositories.
+<br>
+
+The scenes structure has been generated with the [clean-template](https://github.com/NicoDB79/clean-template).
+
+<br>
+
+The workspace usese the following dependencies by default:
+- **Factory**
+- **lottie-ios**
+- **swift-collections**
+- **firebase-ios-sdk**
+- **SVProgressHUD**
