@@ -1,0 +1,12 @@
+/*
+  InfoPlist.strings
+  BaseProject
+
+  Created by Nicola De Bei on 09/11/22.
+  
+*/
+"NSBluetoothAlwaysUsageDescription" = "The app requires the use of Bluetooth to find charging stations";
+"NSLocalNetworkUsageDescription" = "The app requires accessing the local network to detect and connect to the charging stations in the network";
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "The app requires the use of location to find charging stations";
+"NSLocationWhenInUseUsageDescription" = "The app requires the use of location to find charging stations";
+"NSCameraUsageDescription" = "The app requires the use of camera to identify the barcode of charging stations";

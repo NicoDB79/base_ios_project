@@ -1,0 +1,12 @@
+/* 
+  InfoPlist.strings
+  BaseProject
+
+  Created by Nicola De Bei on 09/11/22.
+  
+*/
+"NSBluetoothAlwaysUsageDescription" = "L'app richiede l'utilizzo del Bluetooth per rilevare le stazioni di ricarica";
+"NSLocalNetworkUsageDescription" = "L'app richiede l'accesso alla rete locale per rilevare e connettersi alle stazioni di ricarica presenti sulla rete";
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "L'app richiede l'utilizzo della Posizione per rilevare le stazioni di ricarica";
+"NSLocationWhenInUseUsageDescription" = "L'app richiede l'utilizzo della Posizione per rilevare le stazioni di ricarica";
+"NSCameraUsageDescription" = "L'app richiede l'utilizzo della Camera per identificare il codice a barre delle stazioni di ricarica";
