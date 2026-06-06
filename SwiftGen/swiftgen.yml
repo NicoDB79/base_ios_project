@@ -1,0 +1,28 @@
+output_dir: ../Resources/Generated/
+
+xcassets:
+  - inputs:
+      - ../Target1/Resources/Colors.xcassets
+      - ../Resources/Colors.xcassets
+      - ../Target1/Resources/Media.xcassets
+      - ../Target1/Resources/MediaExclusive.xcassets
+      - ../Target2/Resources/MediaExclusive.xcassets
+      - ../Resources/Media.xcassets
+    outputs:
+      - templatePath: Stencils/assets/swift5_custom.stencil
+        output: Assets.swift
+fonts:
+  - inputs: ../Resources/Fonts
+    outputs:
+      - templatePath: Stencils/fonts/font_swift5.stencil
+        output: Font.swift
+strings:
+  inputs: ../Resources/Localization/String/en.lproj
+  outputs:
+    - templatePath: Stencils/strings/flat-swift5.stencil
+      output: String.swift
+json:
+  - inputs: ../Resources/Lottie
+    outputs: 
+      - templatePath: Stencils/lottie/swiftui-lottie-animations.stencil
+        output: Animation.swift
