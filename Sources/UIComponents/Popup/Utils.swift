@@ -94,40 +94,31 @@ extension View {
 
 // MARK: - AnimationCompletionObserver
 
-struct AnimationCompletionObserverModifier<Value>: AnimatableModifier where Value: VectorArithmetic, Value: Comparable {
+struct AnimationCompletionObserverModifier<Value>: @preconcurrency AnimatableModifier where Value: VectorArithmetic, Value: Comparable {
 
-    /// While animating, SwiftUI changes the old input value to the new target value using this property. This value is set to the old value until the animation completes.
     var animatableData: Value {
         didSet {
             notifyCompletionIfFinished()
         }
     }
 
-    /// The target value for which we're observing. This value is directly set once the animation starts. During animation, `animatableData` will hold the oldValue and is only updated to the target value once the animation completes.
     private var targetValue: Value
+    private var completion: @Sendable () -> Void
 
-    /// The completion callback which is called once the animation completes.
-    private var completion: () -> Void
-
-    init(observedValue: Value, completion: @escaping () -> Void) {
+    init(observedValue: Value, completion: @Sendable @escaping () -> Void) {
         self.completion = completion
         self.animatableData = observedValue
         targetValue = observedValue
     }
 
-    /// Verifies whether the current animation is finished and calls the completion callback if true.
     private func notifyCompletionIfFinished() {
         guard animatableData == targetValue else { return }
-
-        /// Dispatching is needed to take the next runloop for the completion callback.
-        /// This prevents errors like "Modifying state during view update, this will cause undefined behavior."
-        DispatchQueue.main.async {
-            self.completion()
-        }
+        /// Defer to the next runloop to avoid "Modifying state during view update" errors.
+        let completion = completion
+        Task { completion() }
     }
 
     func body(content: Content) -> some View {
-        /// We're not really modifying the view so we can directly return the original input value.
         return content
     }
 }

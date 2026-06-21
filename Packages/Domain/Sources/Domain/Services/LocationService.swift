@@ -9,15 +9,16 @@ import Foundation
 import CoreLocation
 import Combine
 
-public protocol LocationService {
+@MainActor
+public protocol LocationService: Sendable {
     func startLocationUpdates()
     func stopLocationUpdates()
-    func observeLocationUpdates() -> AsyncThrowingStream<CLLocation, Error> // only for Aync solution, not for Combine
-    
-    func addListener(_ listener: LocationServiceListener)
-    func removeListener(_ listener: LocationServiceListener) 
+    func observeLocationUpdates() -> AsyncThrowingStream<CLLocation, Error>
+    func addListener(_ listener: any LocationServiceListener)
+    func removeListener(_ listener: any LocationServiceListener)
 }
 
-public protocol LocationServiceListener {
+@MainActor
+public protocol LocationServiceListener: AnyObject {
     func didReceiveLocationUpdate(_ location: CLLocation)
 }

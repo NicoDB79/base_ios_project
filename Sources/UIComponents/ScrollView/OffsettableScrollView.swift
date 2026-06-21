@@ -44,6 +44,6 @@ struct OffsettableScrollView<T: View>: View {
 }
 
 struct OffsetPreferenceKey: PreferenceKey {
-    static var defaultValue = CGPoint()
+    static let defaultValue = CGPoint()
     static func reduce(value: inout CGPoint, nextValue: () -> CGPoint) { }
 }

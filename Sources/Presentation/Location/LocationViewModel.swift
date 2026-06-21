@@ -17,36 +17,38 @@ protocol LocationDataStore {
 }
 
 // MARK: ViewModel Protocol
+@MainActor
 protocol LocationViewModelProtocol {
     var model: LocationModels { get set }
     func startFetchLocations()
     func stopFetchLocations()
 }
 
+@MainActor
 class LocationViewModel: BaseViewModel, LocationViewModelProtocol, LocationDataStore {
     @Injected(\Container.startFetchLocationUseCase) private var startFetchLocationUseCase
     @Injected(\Container.stopFetchLocationUseCase) private var stopFetchLocationUseCase
     @Injected(\Container.observeLocationUseCase) private var observeLocationUseCase
     @Injected(\Container.observeCombineLocationUseCase) private var observeCombineLocationUseCase
-    
+
     var locationTask: Task<(), Error>?
-    
+
     func startFetchLocations() {
         startFetchLocationUseCase.execute()
         //observeCombineLocations()
         observeLocations()
     }
-    
+
     func stopFetchLocations() {
         locationTask?.cancel()
         //stopFetchLocationUseCase.execute()
-        //removeSubscriptions() // per Combine, ma non serve perchè la subscription viene dismessa al deinit
+        //removeSubscriptions()
     }
-    
+
     private func observeLocations() {
         let locations = observeLocationUseCase.execute()
-        locationTask = Task { @MainActor [weak self] in
-            guard let self = self else { return }
+        locationTask = Task { [weak self] in
+            guard let self else { return }
             do {
                 for try await location in locations {
                     print("LocationViewModel - received AsyncStream location: \(location.coordinate)")

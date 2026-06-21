@@ -30,12 +30,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         clearKeychainOnFreshInstall()
-
-        FirebaseApp.configure()
         
 #if DEBUG
         //TODO: plant log tree of Crashlytics in debug
 #else
+        FirebaseApp.configure()
         //TODO: plant log tree of Crashlytics in release
 #endif
 

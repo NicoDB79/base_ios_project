@@ -7,6 +7,6 @@
 
 import Foundation
 
-public protocol OrderRepository {
+public protocol OrderRepository: Sendable {
     func loadOrders() async throws -> [Order]
 }

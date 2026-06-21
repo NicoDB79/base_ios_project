@@ -11,11 +11,13 @@ import Combine
 import Domain
 
 // MARK: DataStore Protocol
+@MainActor
 protocol OrderDetailDataStore {
     var order: Order? { get set }
 }
 
 // MARK: ViewModel Protocol
+@MainActor
 protocol OrderDetailViewModelProtocol {
     var model: OrderDetailModels { get set }
     func loadOrder()

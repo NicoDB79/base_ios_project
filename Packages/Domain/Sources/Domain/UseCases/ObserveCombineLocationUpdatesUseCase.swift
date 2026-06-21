@@ -9,22 +9,19 @@ import Foundation
 import CoreLocation
 import Combine
 
+@MainActor
 public class ObserveCombineLocationUpdatesUseCase {
-    public let locationService: LocationService
-    
-    public init(locationService: LocationService) {
+    public let locationService: any LocationService
+
+    public init(locationService: any LocationService) {
         self.locationService = locationService
     }
-    
+
     var locationDiscovered = PassthroughSubject<CLLocation?, Error>()
-    
+
     public func execute() -> PassthroughSubject<CLLocation?, Error> {
         locationService.addListener(self)
         return locationDiscovered
-    }
-    
-    deinit {
-        locationService.removeListener(self)
     }
 }
 

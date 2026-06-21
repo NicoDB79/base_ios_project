@@ -10,7 +10,7 @@ import Foundation
 // swiftlint:disable function_parameter_count identifier_name line_length type_body_length
 internal enum L10n {
   /// ОК
-  internal static var genericOk = L10n.tr("Localizable", "generic_ok", fallback: "ОК")
+  internal static var genericOk: String { L10n.tr("Localizable", "generic_ok", fallback: "ОК") }
 }
 // swiftlint:enable function_parameter_count identifier_name line_length type_body_length
 

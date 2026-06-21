@@ -83,6 +83,7 @@ class AsyncLocationStream: NSObject, @MainActor CLLocationManagerDelegate {
     }
 }
 
+@MainActor
 protocol AsyncLocationStreamListener {
     func didReceiveLocationUpdate(_ location: CLLocation)
 }

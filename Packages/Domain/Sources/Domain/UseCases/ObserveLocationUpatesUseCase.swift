@@ -9,12 +9,13 @@ import Foundation
 import CoreLocation
 
 public class ObserveLocationUpatesUseCase {
-    public let locationService: LocationService
-    
-    public init(locationService: LocationService) {
+    public let locationService: any LocationService
+
+    public init(locationService: any LocationService) {
         self.locationService = locationService
     }
     
+    @MainActor
     public func execute() -> AsyncThrowingStream<CLLocation, Error> {
         locationService.observeLocationUpdates()
     }

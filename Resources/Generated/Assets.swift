@@ -62,7 +62,7 @@ internal enum Asset {
 
 // MARK: - Implementation Details
 
-internal final class ColorAsset {
+internal final class ColorAsset: @unchecked Sendable {
   internal fileprivate(set) var name: String
 
   #if os(macOS)
@@ -126,7 +126,7 @@ internal extension SwiftUI.Color {
 }
 #endif
 
-internal struct ImageAsset {
+internal struct ImageAsset: @unchecked Sendable {
   internal fileprivate(set) var name: String
 
   #if os(macOS)

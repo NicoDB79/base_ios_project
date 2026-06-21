@@ -10,12 +10,13 @@ import CoreLocation
 import Combine
 
 public class StartFetchLocationsUseCase {
-    public let locationService: LocationService
-    
-    public init(locationService: LocationService) {
+    public let locationService: any LocationService
+
+    public init(locationService: any LocationService) {
         self.locationService = locationService
     }
     
+    @MainActor
     public func execute() {
         locationService.startLocationUpdates()
     }

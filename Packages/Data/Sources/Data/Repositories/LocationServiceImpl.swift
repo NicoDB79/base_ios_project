@@ -10,36 +10,35 @@ import CoreLocation
 import Combine
 import Domain
 
-public class LocationServiceImpl: @MainActor LocationService {
+@MainActor
+public class LocationServiceImpl: LocationService {
     private let asyncLocationStream: AsyncLocationStream
-    private let listeners: MulticastDelegate<LocationServiceListener>
+    private var listeners: MulticastDelegate<any LocationServiceListener>
 
-    @MainActor
     public init() {
         self.asyncLocationStream = AsyncLocationStream()
-        self.listeners = MulticastDelegate<LocationServiceListener>()
+        self.listeners = MulticastDelegate()
     }
-    
-    public func addListener(_ listener: LocationServiceListener) {
+
+    public func addListener(_ listener: any LocationServiceListener) {
         listeners.add(delegate: listener)
     }
-    
-    public func removeListener(_ listener: LocationServiceListener) {
+
+    public func removeListener(_ listener: any LocationServiceListener) {
         listeners.remove(delegate: listener)
     }
-    
-    @MainActor public func startLocationUpdates() {
+
+    public func startLocationUpdates() {
         asyncLocationStream.addListener(self)
         asyncLocationStream.startLocationUpdates()
     }
-    
-    @MainActor public func stopLocationUpdates() {
+
+    public func stopLocationUpdates() {
         asyncLocationStream.removeListener(self)
         asyncLocationStream.stopLocationUpdates()
     }
-    
-    // Only for AsyncStream, not for Combine solution
-    @MainActor public func observeLocationUpdates() -> AsyncThrowingStream<CLLocation, any Error> {
+
+    public func observeLocationUpdates() -> AsyncThrowingStream<CLLocation, any Error> {
         asyncLocationStream.observeLocationUpdates()
     }
 }

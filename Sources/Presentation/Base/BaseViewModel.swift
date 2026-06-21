@@ -8,19 +8,17 @@
 import Foundation
 import Combine
 
+@MainActor
 protocol BaseViewModelProtocol {
     var cancellables: [AnyCancellable] { get set }
 }
 
+@MainActor
 class BaseViewModel: BaseViewModelProtocol {
 
     var cancellables: [AnyCancellable] = []
 
     func removeSubscriptions() {
         cancellables.forEach { $0.cancel() }
-    }
-
-    deinit {
-        removeSubscriptions()
     }
 }

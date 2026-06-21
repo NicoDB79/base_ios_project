@@ -17,6 +17,7 @@ enum Storyboard: String {
 
 protocol Storyboarded {}
 
+@MainActor
 extension Storyboarded where Self: UIViewController {
     static func instantiate(viewControllerId: String) -> Self {
         // this pulls out "MyApp.MyViewController"

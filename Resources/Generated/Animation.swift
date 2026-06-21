@@ -11,7 +11,7 @@ import Lottie
 
 // swiftlint:disable identifier_name line_length number_separator type_body_length
 internal extension LottieAnimation {
-    static let test = LottieAnimation.named("TEST")!
+    nonisolated(unsafe) static let test = LottieAnimation.named("TEST")!
 }
 // swiftlint:enable identifier_name line_length number_separator type_body_length
 

@@ -29,7 +29,7 @@ class LocationRouter: LocationDataPassing {
     weak var view: LocationViewHostingController?
     
     // MARK: Static methods
-    static func createModule() -> LocationViewHostingController {
+    @MainActor static func createModule() -> LocationViewHostingController {
         
         //MARK: Initialise components.
         let viewModel = LocationViewModel()
