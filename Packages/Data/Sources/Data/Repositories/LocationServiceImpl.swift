@@ -7,44 +7,25 @@
 
 import Foundation
 import CoreLocation
-import Combine
 import Domain
 
-@MainActor
-public class LocationServiceImpl: LocationService {
+public final class LocationServiceImpl: LocationService, @unchecked Sendable {
     private let asyncLocationStream: AsyncLocationStream
-    private var listeners: MulticastDelegate<any LocationServiceListener>
 
+    @MainActor
     public init() {
         self.asyncLocationStream = AsyncLocationStream()
-        self.listeners = MulticastDelegate()
     }
 
-    public func addListener(_ listener: any LocationServiceListener) {
-        listeners.add(delegate: listener)
+    public func startLocationUpdates() async {
+        await asyncLocationStream.startLocationUpdates()
     }
 
-    public func removeListener(_ listener: any LocationServiceListener) {
-        listeners.remove(delegate: listener)
+    public func stopLocationUpdates() async {
+        await asyncLocationStream.stopLocationUpdates()
     }
 
-    public func startLocationUpdates() {
-        asyncLocationStream.addListener(self)
-        asyncLocationStream.startLocationUpdates()
-    }
-
-    public func stopLocationUpdates() {
-        asyncLocationStream.removeListener(self)
-        asyncLocationStream.stopLocationUpdates()
-    }
-
-    public func observeLocationUpdates() -> AsyncThrowingStream<CLLocation, any Error> {
-        asyncLocationStream.observeLocationUpdates()
-    }
-}
-
-extension LocationServiceImpl: AsyncLocationStreamListener {
-    func didReceiveLocationUpdate(_ location: CLLocation) {
-        listeners.invoke { $0.didReceiveLocationUpdate(location) }
+    public func observeLocationUpdates() async -> AsyncThrowingStream<CLLocation, any Error> {
+        await asyncLocationStream.observeLocationUpdates()
     }
 }

@@ -42,12 +42,5 @@ extension Container {
         }
     }
 
-    var observeCombineLocationUseCase: Factory<ObserveCombineLocationUpdatesUseCase> {
-        self {
-            MainActor.assumeIsolated {
-                ObserveCombineLocationUpdatesUseCase(locationService: self.locationService.resolve())
-            }
-        }
-    }
 }
 
