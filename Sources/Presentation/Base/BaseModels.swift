@@ -13,3 +13,7 @@ enum LoadingState {
     case completed
     case error(_ message: String)
 }
+
+class BaseModels: ObservableObject {
+    @Published var loadingState: LoadingState = .none
+}

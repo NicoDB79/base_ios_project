@@ -8,11 +8,11 @@ let project = Project(
         disableSynthesizedResourceAccessors: true
     ),
     packages: [
-        .remote(url: "https://github.com/hmlongco/Factory.git", requirement: .branch("main")),
+        .remote(url: "https://github.com/hmlongco/Factory.git", requirement: .upToNextMajor(from: "2.3.0")),
         .remote(url: "https://github.com/airbnb/lottie-ios.git", requirement: .exact("4.0.0")),
         .remote(url: "https://github.com/apple/swift-collections.git", requirement: .exact("1.0.4")),
         .remote(url: "https://github.com/firebase/firebase-ios-sdk.git", requirement: .exact("11.5.0")),
-        .remote(url: "https://github.com/SVProgressHUD/SVProgressHUD.git", requirement: .branch("master")),
+        .remote(url: "https://github.com/SVProgressHUD/SVProgressHUD.git", requirement: .upToNextMajor(from: "2.2.5")),
         .package(path: "Packages/Domain"),
         .package(path: "Packages/Data")
     ],
@@ -45,14 +45,7 @@ let project = Project(
                 ]
             ),
             resources: [Constants.commonResources, "Target1/Resources/**"],
-            dependencies: [.package(product: "Lottie", type: .runtime),
-                           .package(product: "Collections", type: .runtime),
-                           .package(product: "FactoryKit", type: .runtime),
-                           .package(product: "FirebaseCore", type: .runtime),
-                           .package(product: "FirebaseCrashlytics", type: .runtime),
-                           .package(product: "SVProgressHUD", type: .runtime),
-                           .package(product: "Domain"),
-                           .package(product: "Data")],
+            dependencies: Constants.dependencies,
             settings: .settings(
                 base: Constants.target1PreviewsSettings,
                 configurations: [

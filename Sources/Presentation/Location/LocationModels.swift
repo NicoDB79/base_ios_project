@@ -13,6 +13,6 @@ struct UILocation {
     var longitude: String = ""
 }
 
-class LocationModels: ObservableObject {
+class LocationModels: BaseModels {
     @Published var uiLocation = UILocation()
 }

@@ -26,7 +26,8 @@ class SplashViewController: UIViewController, Storyboarded {
     }
     
     private func navigateToInitialModule() {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.navigateToInitialModule()
+        guard let window = view.window else { return }
+        let initialModule = UINavigationController(rootViewController: OrderListRouter.createModule())
+        window.switchRootViewController(initialModule)
     }
 }

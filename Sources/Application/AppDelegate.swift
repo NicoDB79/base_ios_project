@@ -6,7 +6,6 @@
 //
 
 import UIKit
-//import data
 import SVProgressHUD
 import FactoryKit
 import BackgroundTasks
@@ -16,7 +15,6 @@ import Combine
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: UIWindow?
     let appAlreadyInstalledKey = "already_installed"
     let syncTaskIdentifier = "com.company.baseproject.sync"
     var bgTask : UIBackgroundTaskIdentifier = UIBackgroundTaskIdentifier.invalid
@@ -33,13 +31,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         clearKeychainOnFreshInstall()
 
-
-#if DEBUG
-//        KnfLogKt.debugBuild()
-#else
         FirebaseApp.configure()
-        let crashTree = CrashlyticsTree()
-        KnfLogKt.releaseTree(tree: crashTree)
+        
+#if DEBUG
+        //TODO: plant log tree of Crashlytics in debug
+#else
+        //TODO: plant log tree of Crashlytics in release
 #endif
 
 
@@ -48,9 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.applicationIconBadgeNumber = 0
         
         registerBackgroundTask()
-        
-        navigateToInitialModule()
-        
+
         startFetchLocationUseCase.execute()
         
         // Combine Locations
@@ -76,20 +71,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
     
-    private func openModule(_ initialModule: UIViewController) {
-        window?.rootViewController = initialModule
-        UIView.transition(with: self.window!,
-                          duration: 0.3,
-                          options: .transitionCrossDissolve,
-                          animations: {}, completion: { completed in })
-    }
-    
-    func navigateToInitialModule() {
-        let initialModule = UINavigationController.init(rootViewController: OrderListRouter.createModule())
-        self.window?.switchRootViewController(initialModule)
-    }
-    
-
     private func clearKeychainOnFreshInstall() {
         let freshInstall = !UserDefaults.standard.bool(forKey: appAlreadyInstalledKey)
         if freshInstall {

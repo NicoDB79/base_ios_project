@@ -15,12 +15,9 @@ public struct Constants {
     ["CODE_SIGNING_REQUIRED": "YES",
      "CODE_SIGNING_ALLOWED" : "YES",
      "CODE_SIGN_STYLE": "Automatic",
-     "SWIFT_VERSION": "5.2",
+     "SWIFT_VERSION": "5.10",
      "TARGETED_DEVICE_FAMILY": "1",
-     "ENABLE_BITCODE": "NO",
-     "DEBUG_INFORMATION_FORMAT": "dwarf-with-dsym",
      "CURRENT_PROJECT_VERSION": "$(VERSION_CODE)",
-     "IPHONEOS_DEPLOYMENT_TARGET": "16.0"
     ]
     
     public static let target1PreviewsSettings = {
@@ -69,7 +66,7 @@ public struct Constants {
         */
     ]
     
-    static let dependencies: [ProjectDescription.TargetDependency] = [
+    public static let dependencies: [ProjectDescription.TargetDependency] = [
             .package(product: "FactoryKit", type: .runtime),
             .package(product: "Lottie", type: .runtime),
             .package(product: "Collections", type: .runtime),
@@ -112,7 +109,6 @@ public struct Constants {
         "NSCameraUsageDescription": "The app requires the use of camera to identify the barcode",
         "UIBackgroundModes": ["bluetooth-central", "fetch", "processing"],
         "UIAppFonts" : ["Notosans-Bold.ttf", "Notosans-Medium.ttf", "Notosans-Regular.ttf", "NotoSans-CondensedMedium.ttf", "NotoSans-CondensedBold.ttf"],
-        "BGTaskSchedulerPermittedIdentifiers": "com.company.target1.sync",
         "server_url": "$(server_url)"
     ]
     

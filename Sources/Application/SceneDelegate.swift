@@ -22,10 +22,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.rootViewController = SplashViewController.loadFromNib()
         window.makeKeyAndVisible()
         self.window = window
-        
-        let app = UIApplication.shared
-        let appDelegate = app.delegate as! AppDelegate
-        appDelegate.window = self.window
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -54,7 +50,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
-        let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         appDelegate.createBackGroundTask()
         appDelegate.scheduleSyncWorker()
     }

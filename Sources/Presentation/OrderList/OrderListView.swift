@@ -10,7 +10,7 @@ import SwiftUI
 
 struct OrderListView: View {
     
-    @StateObject var model: OrderListModels
+    @ObservedObject var model: OrderListModels
     var orderSelected: ((String) ->())?
     
     var body: some View {

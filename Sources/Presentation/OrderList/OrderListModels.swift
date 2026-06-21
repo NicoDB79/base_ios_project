@@ -13,7 +13,7 @@ struct UIOrder: Identifiable {
     var code: String = ""
 }
 
-class OrderListModels: ObservableObject {
+class OrderListModels: BaseModels {
     @Published var uiOrders: [UIOrder] = []
     @Published var serverUrl: String = ""
 }

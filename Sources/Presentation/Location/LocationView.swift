@@ -10,7 +10,7 @@ import SwiftUI
 
 struct LocationView: View {
     
-    @StateObject var model: LocationModels
+    @ObservedObject var model: LocationModels
     var callback: (() ->())?
     
     var body: some View {

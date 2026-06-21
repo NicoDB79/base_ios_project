@@ -33,16 +33,18 @@ public enum AppTarget: String {
         switch self {
         case .target1:
             var dict = Constants.commonPlistDict
-             dict["CFBundleDisplayName"] = "Target1"
-             dict["PLACEHOLDERS"] = ["_P_": "Target1"]
-             dict["trackId"] = 1407253847
-             return dict
-            
+            dict["CFBundleDisplayName"] = "Target1"
+            dict["PLACEHOLDERS"] = ["_P_": "Target1"]
+            dict["trackId"] = 1407253847
+            dict["BGTaskSchedulerPermittedIdentifiers"] = "com.company.target1.sync"
+            return dict
+
         case .target2:
             var dict = Constants.commonPlistDict
-             dict["CFBundleDisplayName"] = "Target2"
-             dict["PLACEHOLDERS"] = ["_P_": "Target2"]
-             dict["trackId"] = 6446246874
+            dict["CFBundleDisplayName"] = "Target2"
+            dict["PLACEHOLDERS"] = ["_P_": "Target2"]
+            dict["trackId"] = 6446246874
+            dict["BGTaskSchedulerPermittedIdentifiers"] = "com.company.target2.sync"
             return dict
         }
     }
@@ -84,29 +86,12 @@ public enum AppTarget: String {
     }
     
     var configurationSettings: Settings {
-        switch self {
-        case .target1:
-                .settings(
-                    base: targetSettings,
-                    configurations: [
-                        AppTargetEnvironmentConfig.target1StagingDebug.configuration,
-                        AppTargetEnvironmentConfig.target1StagingRelease.configuration,
-                        AppTargetEnvironmentConfig.target1ProductionDebug.configuration,
-                        AppTargetEnvironmentConfig.target1ProductionRelease.configuration
-                    ]
-                )
-            
-        case .target2:
-                .settings(
-                    base: targetSettings,
-                    configurations: [
-                        AppTargetEnvironmentConfig.target2StagingDebug.configuration,
-                        AppTargetEnvironmentConfig.target2StagingRelease.configuration,
-                        AppTargetEnvironmentConfig.target2ProductionDebug.configuration,
-                        AppTargetEnvironmentConfig.target2ProductionRelease.configuration
-                    ]
-                )
-        }
+        .settings(
+            base: targetSettings,
+            configurations: AppEnvironmentConfig.allCases.map {
+                AppTargetEnvironmentConfig(target: self, config: $0).configuration
+            }
+        )
     }
     
     private func makeTarget(target: AppTarget) -> ProjectDescription.Target {

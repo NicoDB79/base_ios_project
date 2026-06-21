@@ -13,9 +13,11 @@ class OrderListViewHostingController: BaseUIHostingController<OrderListView> {
     
     // MARK: - ViewModel
     var viewModel: (OrderListViewModelProtocol & BaseViewModel)
-    
+
     // MARK: - Router
     var router: (OrderListRouterProtocol & OrderListDataPassing)?
+
+    private var loadTask: Task<Void, Never>?
     
     init(vm: OrderListViewModelProtocol & BaseViewModel) {
         viewModel = vm
@@ -41,11 +43,15 @@ class OrderListViewHostingController: BaseUIHostingController<OrderListView> {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupBinding()
-        
-        Task { [weak self] in
+        loadTask = Task { [weak self] in
             self?.viewModel.loadServerUrl()
             await self?.viewModel.loadOrders()
         }
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        loadTask?.cancel()
     }
     
     private func setupUI() {

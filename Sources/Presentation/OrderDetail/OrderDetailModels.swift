@@ -8,6 +8,6 @@
 
 import UIKit
 
-class OrderDetailModels: ObservableObject {
+class OrderDetailModels: BaseModels {
     @Published var uiOrder: UIOrder = UIOrder()
 }
