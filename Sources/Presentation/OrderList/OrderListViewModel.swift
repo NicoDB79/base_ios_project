@@ -7,16 +7,17 @@
 //
 
 import Foundation
-import Combine
 import FactoryKit
 import Domain
 
 // MARK: DataStore Protocol
+@MainActor
 protocol OrderListDataStore {
     var orders: [Order] { get set }
 }
 
 // MARK: ViewModel Protocol
+@MainActor
 protocol OrderListViewModelProtocol {
     var model: OrderListModels { get set }
     func loadOrders() async

@@ -8,14 +8,14 @@
 import Foundation
 import CoreLocation
 
-public class ObserveLocationUpatesUseCase {
-    public let locationService: LocationService
-    
-    public init(locationService: LocationService) {
+public final class ObserveLocationUpatesUseCase: Sendable {
+    public let locationService: any LocationService
+
+    public init(locationService: any LocationService) {
         self.locationService = locationService
     }
-    
-    public func execute() -> AsyncThrowingStream<CLLocation, Error> {
-        locationService.observeLocationUpdates()
+
+    public func execute() async -> AsyncThrowingStream<CLLocation, Error> {
+        await locationService.observeLocationUpdates()
     }
 }

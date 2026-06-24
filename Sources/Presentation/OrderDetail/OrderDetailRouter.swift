@@ -29,7 +29,7 @@ class OrderDetailRouter: OrderDetailDataPassing {
     weak var view: OrderDetailViewHostingController?
     
     // MARK: Static methods
-    static func createModule() -> OrderDetailViewHostingController {
+    @MainActor static func createModule() -> OrderDetailViewHostingController {
         
         //MARK: Initialise components.
         let viewModel = OrderDetailViewModel()

@@ -7,16 +7,15 @@
 
 import Foundation
 import CoreLocation
-import Combine
 
-public class StartFetchLocationsUseCase {
-    public let locationService: LocationService
-    
-    public init(locationService: LocationService) {
+public final class StartFetchLocationsUseCase: Sendable {
+    public let locationService: any LocationService
+
+    public init(locationService: any LocationService) {
         self.locationService = locationService
     }
-    
-    public func execute() {
-        locationService.startLocationUpdates()
+
+    public func execute() async {
+        await locationService.startLocationUpdates()
     }
 }

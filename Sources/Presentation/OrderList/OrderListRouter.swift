@@ -16,6 +16,7 @@ protocol OrderListDataPassing
 }
 
 // MARK: Router Protocol
+@MainActor
 protocol OrderListRouterProtocol {
     func goToDetail(code: String)
 }
@@ -29,7 +30,7 @@ class OrderListRouter: OrderListDataPassing {
     weak var view: OrderListViewHostingController?
     
     // MARK: Static methods
-    static func createModule() -> OrderListViewHostingController {
+    @MainActor static func createModule() -> OrderListViewHostingController {
         
         //MARK: Initialise components.
         let viewModel = OrderListViewModel()
@@ -43,7 +44,7 @@ class OrderListRouter: OrderListDataPassing {
 }
 
 extension OrderListRouter: OrderListRouterProtocol {
-    func goToDetail(code: String) {
+    @MainActor func goToDetail(code: String) {
         view?.navigationController?.pushViewController(LocationRouter.createModule(), animated: true)
         /*
         if let order = dataStore?.orders.first(where: { $0.code == code }) {

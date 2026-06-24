@@ -8,7 +8,7 @@
 import Foundation
 import Domain
 
-public class OrderRepositoryImpl: OrderRepository {
+public final class OrderRepositoryImpl: OrderRepository, @unchecked Sendable {
     public init() {}
     public func loadOrders() async throws -> [Order] {
         try? await Task.sleep(nanoseconds: 2_000_000)

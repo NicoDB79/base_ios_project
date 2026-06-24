@@ -102,7 +102,7 @@ public enum KeychainItemAccessibility {
     }
 }
 
-private let keychainItemAccessibilityLookup: [KeychainItemAccessibility:CFString] = {
+private nonisolated(unsafe) let keychainItemAccessibilityLookup: [KeychainItemAccessibility:CFString] = {
     var lookup: [KeychainItemAccessibility:CFString] = [
         .afterFirstUnlock: kSecAttrAccessibleAfterFirstUnlock,
         .afterFirstUnlockThisDeviceOnly: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly,

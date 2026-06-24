@@ -8,8 +8,9 @@
 
 import Foundation
 
+@MainActor
 class Toast {
-    static let shared  = Toast()
+    static let shared = Toast()
     private var toastView: ToastView?
     
     func show(messageText: String, actionText: String, actionBlock: @escaping () -> ())

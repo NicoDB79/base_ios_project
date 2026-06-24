@@ -10,8 +10,6 @@ import SVProgressHUD
 import FactoryKit
 import BackgroundTasks
 import FirebaseCore
-import Combine
-
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -21,21 +19,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static let kCheckKey = "CHECK"
     
     @Injected(\Container.startFetchLocationUseCase) private var startFetchLocationUseCase
-    @Injected(\Container.observeCombineLocationUseCase) private var observeCombineLocationUseCase
     @Injected(\Container.observeLocationUseCase) private var observeLocationUseCase
-    var cancellables: [AnyCancellable] = []
-    
     var locationTask: Task<(), Error>?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         clearKeychainOnFreshInstall()
-
-        FirebaseApp.configure()
         
 #if DEBUG
         //TODO: plant log tree of Crashlytics in debug
 #else
+        FirebaseApp.configure()
         //TODO: plant log tree of Crashlytics in release
 #endif
 
@@ -45,14 +39,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.applicationIconBadgeNumber = 0
         
         registerBackgroundTask()
-
-        startFetchLocationUseCase.execute()
         
-        // Combine Locations
-        //observeCombineLocations()
-        
-        // AsyncStream Locations
-        observeLocations()
+        Task {
+            await startFetchLocationUseCase.execute()
+            await observeLocations()
+        }
         
         return true
     }
@@ -134,9 +125,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    private func observeLocations() {
-        let locations = observeLocationUseCase.execute()
-        locationTask = Task { @MainActor in
+    private func observeLocations() async {
+        let locations = await observeLocationUseCase.execute()
+        locationTask = Task {
             do {
                 for try await location in locations {
                     print("AppDelegate - received AsyncStream location: \(location.coordinate)")
@@ -146,27 +137,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-    
-    
-    private func observeCombineLocations() {
-        observeCombineLocationUseCase.execute()
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let anError):
-                    print("received error trying to observe locations: \(anError)")
-                    break
-                }
-            }, receiveValue: { location in
-                  if let loc = location {
-                      print("AppDelegate - received Combine location: \(loc.coordinate)")
-                  }
-              }
-        )
-        .store(in: &cancellables)
-    }
-   
 }
 
 // MARK: UIApplication configurations

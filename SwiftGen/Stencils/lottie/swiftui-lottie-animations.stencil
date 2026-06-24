@@ -15,7 +15,7 @@ import Lottie
 // swiftlint:disable identifier_name line_length number_separator type_body_length
 {{accessModifier}} extension {{enumName}} {
   {% for file in files %}
-    static let {{file.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}} = LottieAnimation.named("{{file.name}}")!
+    nonisolated(unsafe) static let {{file.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}} = LottieAnimation.named("{{file.name}}")!
   {% endfor %}
 }
 // swiftlint:enable identifier_name line_length number_separator type_body_length

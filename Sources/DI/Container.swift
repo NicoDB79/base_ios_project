@@ -15,41 +15,32 @@ extension Container {
         self {
             OrderRepositoryImpl()
         }.singleton
+        
     }
-    
-    @MainActor
-    var locationService: Factory<LocationService> {
+
+    var locationService: Factory<any LocationService> {
         self {
-            LocationServiceImpl()
+            MainActor.assumeIsolated { LocationServiceImpl() }
         }.singleton
     }
-    
-    @MainActor
+
     var startFetchLocationUseCase: Factory<StartFetchLocationsUseCase> {
         self {
             StartFetchLocationsUseCase(locationService: self.locationService.resolve())
         }
     }
-    
-    @MainActor
+
     var stopFetchLocationUseCase: Factory<StopFetchLocationsUseCase> {
         self {
             StopFetchLocationsUseCase(locationService: self.locationService.resolve())
         }
     }
-    
-    @MainActor
+
     var observeLocationUseCase: Factory<ObserveLocationUpatesUseCase> {
         self {
             ObserveLocationUpatesUseCase(locationService: self.locationService.resolve())
         }
     }
-    
-    @MainActor
-    var observeCombineLocationUseCase: Factory<ObserveCombineLocationUpdatesUseCase> {
-        self {
-            ObserveCombineLocationUpdatesUseCase(locationService: self.locationService.resolve())
-        }
-    }
+
 }
 
