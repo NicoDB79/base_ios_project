@@ -53,6 +53,14 @@ public struct Constants {
             ]
         )
     
+    static let preScripts: [ProjectDescription.TargetScript] = [
+        .pre(
+            path: "Scripts/swiftgen.sh",
+            name: "SwiftGen",
+            basedOnDependencyAnalysis: false
+        )
+    ]
+
     static let postScripts: [ProjectDescription.TargetScript] =
     [
         /*

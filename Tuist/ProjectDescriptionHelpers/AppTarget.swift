@@ -110,7 +110,7 @@ public enum AppTarget: String {
                 privacyManifest: Constants.privacyManifest
             ),
             //entitlements: Constants.entitlementDict,
-            scripts: Constants.postScripts,
+            scripts: Constants.preScripts + Constants.postScripts,
             dependencies: Constants.dependencies,
             settings: configurationSettings
         )
