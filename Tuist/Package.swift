@@ -5,10 +5,18 @@ import PackageDescription
     import struct ProjectDescription.PackageSettings
 
     let packageSettings = PackageSettings(
-        // Customize the product types for specific package product
-        // Default is .staticFramework
-        // productTypes: ["Alamofire": .framework,]
-        productTypes: [:]
+        productTypes: [:],
+        baseSettings: .settings(
+            configurations: [
+                .debug(name: "StagingDebug"),
+                .debug(name: "ProductionDebug"),
+                .release(name: "StagingRelease"),
+                .release(name: "ProductionRelease"),
+            ]
+        ),
+        targetSettings: [
+            "FactoryKit": ["SWIFT_VERSION": "6.0"]
+        ]
     )
 #endif
 
@@ -16,8 +24,12 @@ let package = Package(
     name: "base_project",
     platforms: [.iOS(.v16)],
     dependencies: [
-        // Add your own dependencies here:
-        // .package(url: "https://github.com/Alamofire/Alamofire", from: "5.0.0"),
-        // You can read more about dependencies here: https://docs.tuist.io/documentation/tuist/dependencies
+        .package(url: "https://github.com/hmlongco/Factory.git", from: "2.3.0"),
+        .package(url: "https://github.com/airbnb/lottie-ios.git", exact: "4.0.0"),
+        .package(url: "https://github.com/apple/swift-collections.git", exact: "1.0.4"),
+        .package(url: "https://github.com/firebase/firebase-ios-sdk.git", exact: "11.5.0"),
+        .package(url: "https://github.com/SVProgressHUD/SVProgressHUD.git", from: "2.2.5"),
+        .package(path: "../Packages/Domain"),
+        .package(path: "../Packages/Data"),
     ]
 )

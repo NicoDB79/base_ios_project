@@ -7,15 +7,6 @@ let project = Project(
         automaticSchemesOptions: .disabled,
         disableSynthesizedResourceAccessors: true
     ),
-    packages: [
-        .remote(url: "https://github.com/hmlongco/Factory.git", requirement: .upToNextMajor(from: "2.3.0")),
-        .remote(url: "https://github.com/airbnb/lottie-ios.git", requirement: .exact("4.0.0")),
-        .remote(url: "https://github.com/apple/swift-collections.git", requirement: .exact("1.0.4")),
-        .remote(url: "https://github.com/firebase/firebase-ios-sdk.git", requirement: .exact("11.5.0")),
-        .remote(url: "https://github.com/SVProgressHUD/SVProgressHUD.git", requirement: .upToNextMajor(from: "2.2.5")),
-        .package(path: "Packages/Domain"),
-        .package(path: "Packages/Data")
-    ],
     settings: Constants.projectConfigurationSettings,
     targets: [
         AppTarget.target1.projectTarget,

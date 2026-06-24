@@ -67,14 +67,14 @@ public struct Constants {
     ]
     
     public static let dependencies: [ProjectDescription.TargetDependency] = [
-            .package(product: "FactoryKit", type: .runtime),
-            .package(product: "Lottie", type: .runtime),
-            .package(product: "Collections", type: .runtime),
-            .package(product: "FirebaseCore", type: .runtime),
-            .package(product: "FirebaseCrashlytics", type: .runtime),
-            .package(product: "SVProgressHUD", type: .runtime),
-            .package(product: "Domain"),
-            .package(product: "Data")
+            .external(name: "FactoryKit"),
+            .external(name: "Lottie"),
+            .external(name: "Collections"),
+            .external(name: "FirebaseCore"),
+            .external(name: "FirebaseCrashlytics"),
+            .external(name: "SVProgressHUD"),
+            .external(name: "Domain"),
+            .external(name: "Data")
         ]
     
     static let commonSources: ProjectDescription.SourceFileGlob = "Sources/**"
