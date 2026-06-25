@@ -33,6 +33,13 @@ public enum AppEnvironmentConfig: String, CaseIterable {
         case .stagingRelease, .productionRelease: return .release
         }
     }
+
+    public var configuration: Configuration {
+        switch buildConfig {
+        case .debug: return .debug(name: name)
+        case .release: return .release(name: name)
+        }
+    }
 }
 
 public struct AppTargetEnvironmentConfig {

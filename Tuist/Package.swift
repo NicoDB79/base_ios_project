@@ -15,7 +15,7 @@ import PackageDescription
             ]
         ),
         targetSettings: [
-            "FactoryKit": ["SWIFT_VERSION": "6.0"]
+            "FactoryKit": .settings(base: ["SWIFT_VERSION": "6.0"])
         ]
     )
 #endif

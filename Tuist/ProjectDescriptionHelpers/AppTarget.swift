@@ -117,12 +117,6 @@ public enum AppTarget: String {
     }
     
     public var projectTarget: ProjectDescription.Target {
-        switch self {
-        case .target1:
-            makeTarget(target: .target1)
-            
-        case .target2:
-            makeTarget(target: .target2)
-        }
+        makeTarget(target: self)
     }
 }

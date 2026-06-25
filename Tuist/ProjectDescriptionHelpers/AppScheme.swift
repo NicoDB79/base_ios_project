@@ -53,36 +53,31 @@ public enum AppScheme {
     }
     
     public var scheme: ProjectDescription.Scheme {
-        makeScheme(scheme: self)
-    }
-    
-    
-    private func makeScheme(scheme: AppScheme) -> ProjectDescription.Scheme {
-        let targetName = scheme.target.targetName
+        let targetName = target.targetName
 
         var testAction: TestAction?
-        if scheme.target == .target1 {
+        if target == .target1 {
             testAction = .targets(
                 ["Target1Tests"],
-                configuration: scheme.debugEnvironmentConfig.name
+                configuration: debugEnvironmentConfig.name
             )
         }
 
         return ProjectDescription.Scheme.scheme(
-            name: "\(targetName)-\(scheme.environment.name)",
+            name: "\(targetName)-\(environment.name)",
             shared: true,
             buildAction: .buildAction(targets: [.target(targetName)]),
             testAction: testAction,
             runAction: .runAction(
-                configuration: scheme.debugEnvironmentConfig.name,
+                configuration: debugEnvironmentConfig.name,
                 executable: .executable(.target(targetName))
             ),
-            archiveAction: .archiveAction(configuration: scheme.releaseEnvironmentConfig.name),
+            archiveAction: .archiveAction(configuration: releaseEnvironmentConfig.name),
             profileAction: .profileAction(
-                configuration: scheme.releaseEnvironmentConfig.name,
+                configuration: releaseEnvironmentConfig.name,
                 executable: .executable(.target(targetName))
             ),
-            analyzeAction: .analyzeAction(configuration: scheme.releaseEnvironmentConfig.name)
+            analyzeAction: .analyzeAction(configuration: releaseEnvironmentConfig.name)
         )
     }
 }

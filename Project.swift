@@ -39,12 +39,7 @@ let project = Project(
             dependencies: Constants.dependencies,
             settings: .settings(
                 base: Constants.target1PreviewsSettings,
-                configurations: [
-                    .debug(name: AppEnvironmentConfig.stagingDebug.name),
-                    .release(name: AppEnvironmentConfig.stagingRelease.name),
-                    .debug(name: AppEnvironmentConfig.productionDebug.name),
-                    .release(name: AppEnvironmentConfig.productionRelease.name)
-                ]
+                configurations: AppEnvironmentConfig.allCases.map { $0.configuration }
             ),
         ),
         .target(
@@ -60,12 +55,7 @@ let project = Project(
             dependencies: [.target(name: "Target1")],
             settings: .settings(
                 base: Constants.target1TestSettings,
-                configurations: [
-                    .debug(name: AppEnvironmentConfig.stagingDebug.name),
-                    .release(name: AppEnvironmentConfig.stagingRelease.name),
-                    .debug(name: AppEnvironmentConfig.productionDebug.name),
-                    .release(name: AppEnvironmentConfig.productionRelease.name)
-                ]
+                configurations: AppEnvironmentConfig.allCases.map { $0.configuration }
             )
         ),
     ],
