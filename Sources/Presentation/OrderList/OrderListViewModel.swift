@@ -37,7 +37,7 @@ class OrderListViewModel: BaseViewModel, OrderListViewModelProtocol, OrderListDa
     func loadOrders() async {
         if let ods = try? await orderRepository.loadOrders() {
             self.orders = ods
-            model.uiOrders = ods.map { $0.toUI()}
+            model.uiOrders = ods.map { $0.toUI()}.sorted(by: { $0.code < $1.code })
         }
     }
     
@@ -51,6 +51,6 @@ class OrderListViewModel: BaseViewModel, OrderListViewModelProtocol, OrderListDa
 
 extension Order {
     func toUI() -> UIOrder {
-        UIOrder(code: code)
+        UIOrder(code: code, description: orderDescription, customer: customer)
     }
 }

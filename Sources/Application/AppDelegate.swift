@@ -10,6 +10,7 @@ import SVProgressHUD
 import FactoryKit
 import BackgroundTasks
 import FirebaseCore
+import UserNotifications
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -18,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var bgTask : UIBackgroundTaskIdentifier = UIBackgroundTaskIdentifier.invalid
     static let kCheckKey = "CHECK"
     
+    @Injected(\Container.seedIfNeededUseCase) private var seedIfNeededUseCase
     @Injected(\Container.startFetchLocationUseCase) private var startFetchLocationUseCase
     @Injected(\Container.observeLocationUseCase) private var observeLocationUseCase
     var locationTask: Task<(), Error>?
@@ -36,10 +38,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Override point for customization after application launch.
 
-        UIApplication.shared.applicationIconBadgeNumber = 0
+        UNUserNotificationCenter.current().setBadgeCount(0)
         
         registerBackgroundTask()
         
+        Task {
+            await seedIfNeededUseCase.execute()
+        }
+
         Task {
             await startFetchLocationUseCase.execute()
             await observeLocations()

@@ -10,4 +10,5 @@ import Foundation
 public protocol OrderRepository: Sendable {
     func loadOrders() async throws -> [Order]
     func save(_ order: Order) async throws
+    func seedIfNeeded() async throws
 }

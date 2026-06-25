@@ -45,13 +45,13 @@ class OrderListRouter: OrderListDataPassing {
 
 extension OrderListRouter: OrderListRouterProtocol {
     @MainActor func goToDetail(code: String) {
-        view?.navigationController?.pushViewController(LocationRouter.createModule(), animated: true)
-        /*
+        
+        //view?.navigationController?.pushViewController(LocationRouter.createModule(), animated: true)
+        
         if let order = dataStore?.orders.first(where: { $0.code == code }) {
             let orderDetailVC = OrderDetailRouter.createModule()
             orderDetailVC.router?.dataStore?.order = order
             view?.navigationController?.pushViewController(orderDetailVC, animated: true)
         }
-        */
     }
 }

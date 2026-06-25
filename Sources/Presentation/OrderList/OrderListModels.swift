@@ -11,6 +11,8 @@ import UIKit
 struct UIOrder: Identifiable {
     let id = UUID()
     var code: String = ""
+    var description: String = ""
+    var customer: String = ""
 }
 
 class OrderListModels: BaseModels {

@@ -47,6 +47,12 @@ extension Container {
             ObserveLocationUpatesUseCase(locationService: self.locationService.resolve())
         }
     }
+    
+    var seedIfNeededUseCase: Factory<SeedIfNeededUseCase> {
+        self {
+            SeedIfNeededUseCase(orderRepository: self.orderRepository.resolve())
+        }
+    }
 
 }
 
