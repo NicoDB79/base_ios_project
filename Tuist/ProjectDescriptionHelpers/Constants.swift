@@ -9,7 +9,7 @@ import Foundation
 @preconcurrency import ProjectDescription
 
 public struct Constants {
-    public static let deploymentTarget = "16.0"
+    public static let deploymentTarget = "17.0"
     
     public static let commonSettings: ProjectDescription.SettingsDictionary =
     ["CODE_SIGNING_REQUIRED": "YES",

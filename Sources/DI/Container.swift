@@ -7,15 +7,21 @@
 
 import Foundation
 import FactoryKit
+import SwiftData
 import Domain
 import Data
 
 extension Container {
-    var orderRepository: Factory<OrderRepository> {
+    var orderModelContainer: Factory<ModelContainer> {
         self {
-            OrderRepositoryImpl()
+            try! OrderRepositoryImpl.makeModelContainer()
         }.singleton
-        
+    }
+
+    var orderRepository: Factory<any OrderRepository> {
+        self {
+            OrderRepositoryImpl(modelContainer: self.orderModelContainer.resolve())
+        }.singleton
     }
 
     var locationService: Factory<any LocationService> {

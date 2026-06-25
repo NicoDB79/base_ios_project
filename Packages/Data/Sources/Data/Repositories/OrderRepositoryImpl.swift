@@ -1,17 +1,19 @@
-//
-//  OrderRepositoryImpl.swift
-//  BaseProject
-//
-//  Created by Nicola De Bei on 03/02/25.
-//
-
-import Foundation
+import SwiftData
 import Domain
 
-public final class OrderRepositoryImpl: OrderRepository, @unchecked Sendable {
-    public init() {}
+@ModelActor
+public actor OrderRepositoryImpl: OrderRepository {
+    public static func makeModelContainer() throws -> ModelContainer {
+        try ModelContainer(for: OrderEntity.self)
+    }
+
     public func loadOrders() async throws -> [Order] {
-        try? await Task.sleep(nanoseconds: 2_000_000)
-        return [Order(code: "AAA"), Order(code: "BBB")]
+        let descriptor = FetchDescriptor<OrderEntity>()
+        return try modelContext.fetch(descriptor).map { Order(code: $0.code) }
+    }
+
+    public func save(_ order: Order) async throws {
+        modelContext.insert(OrderEntity(code: order.code))
+        try modelContext.save()
     }
 }

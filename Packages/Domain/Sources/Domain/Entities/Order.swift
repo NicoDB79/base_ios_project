@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Order {
+public struct Order: Sendable {
     public let code: String
 
     public init(code: String) {
