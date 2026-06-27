@@ -22,7 +22,7 @@ import PackageDescription
 
 let package = Package(
     name: "base_project",
-    platforms: [.iOS(.v16)],
+    platforms: [.iOS(.v17)],
     dependencies: [
         .package(url: "https://github.com/hmlongco/Factory.git", from: "2.3.0"),
         .package(url: "https://github.com/airbnb/lottie-ios.git", exact: "4.0.0"),

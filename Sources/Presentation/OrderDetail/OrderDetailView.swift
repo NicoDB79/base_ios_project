@@ -16,6 +16,8 @@ struct OrderDetailView: View {
     var body: some View {
         VStack(spacing: 40) {
             Text(model.uiOrder.code)
+            Text(model.uiOrder.description)
+            Text(model.uiOrder.customer)
             Button("button") {
                 callback?()
             }

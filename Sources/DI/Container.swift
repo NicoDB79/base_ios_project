@@ -7,15 +7,25 @@
 
 import Foundation
 import FactoryKit
+import SwiftData
 import Domain
 import Data
 
 extension Container {
-    var orderRepository: Factory<OrderRepository> {
+    var modelContainer: Factory<ModelContainer> {
         self {
-            OrderRepositoryImpl()
+            do {
+                return try AppDatabase.makeModelContainer()
+            } catch {
+                fatalError("Failed to create ModelContainer: \(error)")
+            }
         }.singleton
-        
+    }
+
+    var orderRepository: Factory<any OrderRepository> {
+        self {
+            OrderRepositoryImpl(modelContainer: self.modelContainer.resolve())
+        }.singleton
     }
 
     var locationService: Factory<any LocationService> {
@@ -39,6 +49,12 @@ extension Container {
     var observeLocationUseCase: Factory<ObserveLocationUpatesUseCase> {
         self {
             ObserveLocationUpatesUseCase(locationService: self.locationService.resolve())
+        }
+    }
+    
+    var seedIfNeededUseCase: Factory<SeedIfNeededUseCase> {
+        self {
+            SeedIfNeededUseCase(orderRepository: self.orderRepository.resolve())
         }
     }
 
