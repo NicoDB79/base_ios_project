@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import CoreLocation
 
 public final class SeedIfNeededUseCase: Sendable {
     public let orderRepository: any OrderRepository

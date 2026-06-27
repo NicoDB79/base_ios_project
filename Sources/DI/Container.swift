@@ -12,15 +12,19 @@ import Domain
 import Data
 
 extension Container {
-    var orderModelContainer: Factory<ModelContainer> {
+    var modelContainer: Factory<ModelContainer> {
         self {
-            try! OrderRepositoryImpl.makeModelContainer()
+            do {
+                return try AppDatabase.makeModelContainer()
+            } catch {
+                fatalError("Failed to create ModelContainer: \(error)")
+            }
         }.singleton
     }
 
     var orderRepository: Factory<any OrderRepository> {
         self {
-            OrderRepositoryImpl(modelContainer: self.orderModelContainer.resolve())
+            OrderRepositoryImpl(modelContainer: self.modelContainer.resolve())
         }.singleton
     }
 
