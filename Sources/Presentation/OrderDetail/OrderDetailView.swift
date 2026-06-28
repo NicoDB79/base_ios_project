@@ -18,7 +18,7 @@ struct OrderDetailView: View {
             Text(model.uiOrder.code)
             Text(model.uiOrder.description)
             Text(model.uiOrder.customer)
-            Button("button") {
+            Button(L10n.genericOk) {
                 callback?()
             }
         }
