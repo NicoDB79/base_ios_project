@@ -21,7 +21,7 @@ let project = Project(
             sources: .sourceFilesList(
                 globs: [
                     .glob("Target1Previews/**"),
-                    .glob("Target1/Sources/UIComponents/**"),
+                    //.glob("Target1/Sources/UIComponents/**"),
                     .glob("Sources/**/*View.swift"),
                     .glob("Sources/**/*Models.swift"),
                     .glob("Sources/**/*Modifiers.swift"),
